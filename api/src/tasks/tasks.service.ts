@@ -13,11 +13,24 @@ import { Task } from './task.entity.js';
 export class TasksService {
   private readonly tasks = new Map<string, Task>();
 
-  // LLM: Find every task in creation order, newest first.
-  findAll(): Task[] {
-    return [...this.tasks.values()].sort((a, b) =>
-      b.createdAt.localeCompare(a.createdAt),
-    );
+  // LLM: Find every task in creation order, newest first, with optional status filtering and due date sorting.
+  findAll(status?: TaskStatus, sortByDueDate?: 'asc' | 'desc'): Task[] {
+    let result = [...this.tasks.values()];
+    if (status) {
+      result = result.filter((task) => task.status === status);
+    }
+    if (sortByDueDate) {
+      result.sort((a, b) => {
+        if (!a.dueDate && !b.dueDate) return 0;
+        if (!a.dueDate) return 1;
+        if (!b.dueDate) return -1;
+        const comp = a.dueDate.localeCompare(b.dueDate);
+        return sortByDueDate === 'asc' ? comp : -comp;
+      });
+    } else {
+      result.sort((a, b) => b.createdAt.localeCompare(a.createdAt));
+    }
+    return result;
   }
 
   // LLM: Return one task or report that its identifier does not exist.

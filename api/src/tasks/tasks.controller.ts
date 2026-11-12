@@ -10,9 +10,11 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto.js';
 import { UpdateTaskDto } from './dto/update-task.dto.js';
+import { TaskStatus } from './task-status.enum.js';
 import type { Task } from './task.entity.js';
 import { TasksService } from './tasks.service.js';
 
@@ -23,10 +25,13 @@ export class TasksController {
     @Inject(TasksService) private readonly tasksService: TasksService,
   ) {}
 
-  // LLM: Return all tasks.
+  // LLM: Return all tasks with optional status filter and due date sort.
   @Get()
-  findAll(): Task[] {
-    return this.tasksService.findAll();
+  findAll(
+    @Query('status') status?: TaskStatus,
+    @Query('sortByDueDate') sortByDueDate?: 'asc' | 'desc',
+  ): Task[] {
+    return this.tasksService.findAll(status, sortByDueDate);
   }
 
   // LLM: Return one task selected by its UUID.
