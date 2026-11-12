@@ -226,7 +226,7 @@ recreated. No database or Docker volume setup is required.
 
 ## How I Used AI
 
-During this assignment, I leveraged AI coding assistants (Antigravity with Google DeepMind LLM) as a collaborative pair programmer to accelerate scaffolding and test generation while maintaining strict manual oversight and code ownership:
+During this assignment, I used AI coding assistance (Antigravity with Google DeepMind LLM) to help with scaffolding, implementation ideas, and test generation. I reviewed the generated suggestions and the final code, made changes where needed, and verified the application with tests, linting, and production builds. I did not treat AI-generated output as finished work without checking it; I am responsible for and can explain the code I submitted.
 
 1. **Scaffolding and Boilerplate**:
    - Used AI to quickly draft initial NestJS boilerplate (module, controller, service, and DTO definitions with `class-validator` annotations).
