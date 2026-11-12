@@ -1,6 +1,6 @@
 # Task Manager Application
 
-A modern, production-grade Task Manager application built with a **NestJS** REST API backend and a **Next.js (App Router)** frontend styled with **shadcn/ui** and **Tailwind CSS v4**.
+A Task Manager application built with a **NestJS** REST API backend and a **Next.js (App Router)** frontend styled with **shadcn/ui** and **Tailwind CSS v4**.
 
 ---
 
@@ -82,6 +82,9 @@ Contents of `api/.env`:
 PORT=3000
 WEB_ORIGIN=http://localhost:3001
 ```
+
+The API stores tasks in memory, so no database installation or setup is needed.
+Tasks are cleared when the API process restarts.
 
 #### b. Install Dependencies
 ```bash
@@ -224,17 +227,10 @@ recreated. No database or Docker volume setup is required.
 
 ---
 
-## How I Used AI
+## How I used AI
 
-During this assignment, I used AI coding assistance (Antigravity with Google DeepMind LLM) to help with scaffolding, implementation ideas, and test generation. I reviewed the generated suggestions and the final code, made changes where needed, and verified the application with tests, linting, and production builds. I did not treat AI-generated output as finished work without checking it; I am responsible for and can explain the code I submitted.
+I used Antigravity with Google DeepMind LLM and Copilot in VS Code as development assistants. I planned the application structure and feature set: a NestJS task API, a Next.js task-management interface, DTO-based validation, and an in-memory data store. I used AI to help scaffold parts of the applications, explore implementation options, and draft tests, then integrated and adapted the suggestions as I built the project.
 
-1. **Scaffolding and Boilerplate**:
-   - Used AI to quickly draft initial NestJS boilerplate (module, controller, service, and DTO definitions with `class-validator` annotations).
-   - Generated initial accessible UI components and layouts matching shadcn/ui patterns and Tailwind CSS v4 standards.
+I reviewed the generated code rather than treating it as finished output. I refined the API and validation, added status filtering and due-date sorting, and adjusted the interface and form behavior, including date handling and clearing optional fields. I also reviewed the test and TypeScript configuration and used the test and build feedback to resolve issues.
 
-2. **Refinements and Critical Fixes Applied**:
-   - **TypeScript & ESM Compilation**: Fixed decorator metadata type imports (`import type { Task }`) required under TypeScript's `isolatedModules` and `emitDecoratorMetadata` settings.
-   - **React 19 & Next.js 16 Compatibility**: Resolved ESLint `react-hooks/set-state-in-effect` rule violations by decoupling dialog form state from effect cascades, using keyed form instances (`key={initialTask?.id ?? 'new-task'}`) and proper data-fetching cleanup functions.
-   - **Server-Side Bonus Features**: Extended the NestJS API with query parameter filtering (`@Query('status')`) and sorting (`@Query('sortByDueDate')`) to complement client-side controls.
-   - **Automated Tests**: Added 20 unit tests for controller/service behavior and 3 end-to-end tests exercising HTTP routes, including validation, using Vitest and Supertest.
-   - **Production Readiness**: Added multi-stage Docker builds, environment documentation, and strict input sanitization.
+To verify the result, I ran the API unit and end-to-end tests, lint checks, and production builds for both applications. I am responsible for the submitted implementation and can explain how it works, the decisions I made, and how I tested it.
